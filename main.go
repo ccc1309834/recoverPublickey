@@ -13,6 +13,8 @@ func main() {
 	curve := secp256k1.S256()
 	//generate priv
 	priv, _ := ecdsa.GenerateKey(curve, rand.Reader)
+	pubk := priv.Public().(*ecdsa.PublicKey)
+	fmt.Println("pubX", pubk.X, "pubY", pubk.Y)
 
 	//hash
 	e := sha256.Sum256([]byte("helloworld"))
