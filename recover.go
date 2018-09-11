@@ -73,7 +73,7 @@ func x_to_point(r, v *big.Int, curve *secp256k1.BitCurve) (*big.Int, *big.Int, e
 	if new(big.Int).Exp(y, big.NewInt(2), p).Cmp(c) != 0 {
 		return nil, nil, errors.New("recover fail, y^2!=c")
 	}
-	if a, b := curve.ScalarMult(x, y, n.Bytes()); a != nil && b != nil {
+	if a, b := curve.ScalarMult(x, y, n.Bytes()); a != nil || b != nil {
 		return nil, nil, errors.New("recover fail, nR!=O")
 	}
 

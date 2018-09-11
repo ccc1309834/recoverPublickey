@@ -31,9 +31,10 @@ func main() {
 		fmt.Println("Recover Fail", "err", err)
 	} else {
 		if ecdsa.Verify(pub, e[:], new(big.Int).SetBytes(sig[:32]), new(big.Int).SetBytes(sig[32:64])) {
-			fmt.Println("Verify Success", "pubX", pub.X, "pubY", pub.Y)
+			fmt.Println("Verify Success")
+			fmt.Println("pubX", pub.X, "pubY", pub.Y)
 		} else {
-			fmt.Println("Verify Fail", "pubX", pub.X, "pubY", pub.Y)
+			fmt.Println("Verify Fail")
 		}
 	}
 
