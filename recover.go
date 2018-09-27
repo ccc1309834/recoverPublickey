@@ -4,6 +4,7 @@ import (
 	"crypto/elliptic"
 	"crypto/sm2"
 	"errors"
+	"fmt"
 	"math/big"
 )
 
@@ -89,5 +90,8 @@ func x_to_point(e, r, v *big.Int, curve *elliptic.CurveParams) (*big.Int, *big.I
 	if a, b := curve.ScalarMult(x, y, n.Bytes()); a.Cmp(big.NewInt(0)) != 0 || b.Cmp(big.NewInt(0)) != 0 {
 		return nil, nil, errors.New("recover fail, nR!=O")
 	}
+	fmt.Println("====================r to R====================")
+	fmt.Println("R(x,y)","(",x,",",y,")")
+	fmt.Println()
 	return x, y, nil
 }

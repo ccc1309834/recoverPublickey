@@ -12,24 +12,25 @@ func main() {
 	//generate priv
 	priv, _ := sm2.GenerateKey(curve, rand.Reader)
 	pubk := priv.Public().(*sm2.PublicKey)
-	fmt.Println("pubX", pubk.X, "pubY", pubk.Y)
+	fmt.Println("====================priv's publickey====================")
+	fmt.Println(pubk)
+	fmt.Println()
 
 	//hash
 	e := sm3.Sum([]byte("helloworld"))
 
 	//sign
 	r, s, v, _ := Sign(rand.Reader, priv, e[:])
-	
+	fmt.Println("====================sm2 sig====================")
+	fmt.Println("r:", r, "s:", s, "v:", v)
+	fmt.Println()
+
 	//recover pub
 	if pub, err := recover(e[:], r, s, v, curve); err != nil {
-		fmt.Println("Recover Fail", "err", err)
+		fmt.Println(err)
 	} else {
-		if sm2.Verify(pub, e[:], r, s) {
-			fmt.Println("Verify Success")
-			fmt.Println("pubX", pub.X, "pubY", pub.Y)
-
-		} else {
-			fmt.Println("Verify Fail")
-		}
+		fmt.Println("====================recover success,publickey====================")
+		fmt.Println(pub)
+		fmt.Println("Verify: Success")
 	}
 }
