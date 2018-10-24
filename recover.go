@@ -71,10 +71,7 @@ func x_to_point(e, r, v *big.Int, curve *elliptic.CurveParams) (*big.Int, *big.I
 	//R=(x,y)
 	y := new(big.Int).Exp(c, p_add_1_div_4, p)
 
-	if v.Cmp(big.NewInt(0)) == 0 && new(big.Int).Mod(y, big.NewInt(2)).Cmp(big.NewInt(1)) == 0 {
-		y.Neg(y)
-		y.Mod(y, p)
-	} else if v.Cmp(big.NewInt(1)) == 0 && new(big.Int).Mod(y, big.NewInt(2)).Cmp(big.NewInt(0)) == 0 {
+	if new(big.Int).Mod(new(big.Int).Add(y, v), big.NewInt(2)).Cmp(big.NewInt(0)) != 0 {
 		y.Neg(y)
 		y.Mod(y, p)
 	}
@@ -91,7 +88,7 @@ func x_to_point(e, r, v *big.Int, curve *elliptic.CurveParams) (*big.Int, *big.I
 		return nil, nil, errors.New("recover fail, nR!=O")
 	}
 	fmt.Println("====================r to R====================")
-	fmt.Println("R(x,y)","(",x,",",y,")")
+	fmt.Println("R(x,y)", "(", x, ",", y, ")")
 	fmt.Println()
 	return x, y, nil
 }
